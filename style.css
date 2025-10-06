@@ -14,6 +14,47 @@ body {
     min-height: 100vh;
 }
 
+/* Header for news ticker and title */
+header {
+    width: 95%;
+    max-width: 1200px;
+    margin-top: 20px;
+    background-color: #333;
+    border: 2px solid #555;
+    border-radius: 8px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.game-title {
+    font-size: 1.5rem;
+    color: #ff6347;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.news-ticker-container {
+    padding: 10px 0;
+}
+
+.news-ticker {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#game-news {
+    color: #ff9800;
+    display: inline-block;
+    animation: ticker-scroll 20s linear infinite;
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
 /* Main game container for the columns */
 .game-container {
     display: flex;
@@ -39,11 +80,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* This spaces content vertically */
+    justify-content: space-between;
 }
 
-/* Equal width for the store and stats columns */
-.middle-column, .right-column {
+.right-column {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -52,7 +92,6 @@ body {
 /* Main clickable area with background image */
 #main-click-background {
     width: 100%;
-    /* Use padding-top to maintain a square aspect ratio for the clickable area */
     padding-top: 100%;
     background-image: url('Screenshot 2025-10-06 12.39.09 PM.png');
     background-size: cover;
@@ -62,8 +101,8 @@ body {
     border: 5px solid #8B4513;
     border-radius: 20px;
     transition: transform 0.1s ease-out, filter 0.1s ease-out;
-    position: relative; /* Position children relative to this container */
-    overflow: hidden; /* Ensures child elements don't escape */
+    position: relative;
+    overflow: hidden;
 }
 
 #main-click-background:active {
@@ -75,13 +114,13 @@ body {
 #main-chili-soup {
     width: 60%;
     height: auto;
-    border-radius: 50%; /* Make it round to look more like a bowl */
+    border-radius: 50%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     z-index: 3;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Center the image precisely */
+    transform: translate(-50%, -50%);
 }
 
 /* Score display container */
@@ -95,7 +134,7 @@ body {
 #chili-count {
     font-size: 2.5rem;
     color: #ff6347;
-    margin: 0; /* Remove default margin */
+    margin: 0;
 }
 
 #chilis-per-second {
@@ -104,38 +143,10 @@ body {
     margin-top: 5px;
 }
 
-/* News ticker and milestones */
-.news-ticker-container {
-    width: 95%;
-    max-width: 1200px;
-    background-color: #333;
-    border: 2px solid #555;
-    border-radius: 8px;
-    padding: 10px 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    margin-top: 20px;
-}
-
-.news-ticker {
-    white-space: nowrap; /* Keep text on a single line */
-    overflow: hidden; /* Hide overflow */
-}
-
-#game-news {
-    color: #ff9800; /* Spicy orange */
-    display: inline-block;
-    animation: ticker-scroll 20s linear infinite; /* Animation for scrolling */
-}
-
-@keyframes ticker-scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
 /* Upgrade tabs and content */
 .upgrade-tabs {
     display: flex;
-    justify-content: flex-start; /* Align tabs to the left */
+    justify-content: flex-start;
     margin-bottom: 15px;
 }
 
@@ -159,17 +170,16 @@ body {
 }
 
 .tab-content {
-    /* To be populated by JavaScript */
-    overflow-y: auto; /* Allows scrolling for many items */
-    flex-grow: 1; /* Makes content fill remaining space */
-    display: none; /* Hide all tab content by default */
+    overflow-y: auto;
+    flex-grow: 1;
+    display: none;
 }
 
 .tab-content.active {
-    display: block; /* Show the active tab's content */
+    display: block;
 }
 
-/* Upgrade and building item styles (for JS to populate) */
+/* Upgrade and building item styles */
 .upgrade-item {
     display: flex;
     align-items: center;
@@ -213,7 +223,7 @@ body {
     color: #ccc;
 }
 
-/* --- Floating numbers and text animations (triggered by JS) --- */
+/* Floating numbers animation */
 @keyframes floatUp {
     from {
         transform: translateY(0) scale(1);
@@ -232,6 +242,6 @@ body {
     color: yellow;
     text-shadow: 2px 2px 4px black;
     animation: floatUp 1s ease-out forwards;
-    pointer-events: none; /* Allows clicks to pass through */
+    pointer-events: none;
     z-index: 10;
 }
