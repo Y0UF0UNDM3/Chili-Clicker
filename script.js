@@ -8,7 +8,7 @@ const mainClickArea = document.getElementById('main-click-background');
 const chiliCountDisplay = document.getElementById('chili-count');
 const cpsDisplay = document.getElementById('chilis-per-second');
 const gameNewsSpan = document.getElementById('game-news');
-const newsTickerContainer = document.querySelector('.news-ticker-container');
+const newsTickerContainer = document.querySelector('.news-ticker'); // Select the ticker container for clicks
 const buildingList = document.getElementById('building-list');
 const upgradeList = document.getElementById('upgrade-list');
 const statsDisplay = document.getElementById('stats-display');
@@ -43,7 +43,7 @@ const generalNews = [
 ];
 
 let newsIndex = 0;
-let newsTickerInterval;
+let newsTickerInterval; // To control the news ticker interval
 
 // --- Game Logic Functions ---
 function updateNewsTicker() {
@@ -68,9 +68,11 @@ function handleChiliClick(event) {
     floatingNumber.textContent = `+${chilisPerClick}`;
     mainClickArea.appendChild(floatingNumber);
     
+    // Position floating number at click location relative to the clickable area
     floatingNumber.style.left = `${event.offsetX}px`;
     floatingNumber.style.top = `${event.offsetY}px`;
     
+    // Remove after animation completes (1 second duration set in CSS)
     floatingNumber.addEventListener('animationend', () => {
         floatingNumber.remove();
     });
@@ -86,7 +88,7 @@ function updateCpsDisplay() {
 }
 
 function renderBuildings() {
-    buildingList.innerHTML = '';
+    buildingList.innerHTML = ''; // Clear previous buildings
     buildings.forEach(building => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'upgrade-item';
@@ -109,17 +111,18 @@ function buyBuilding(buildingId) {
         chiliCount -= building.cost;
         building.owned++;
         chilisPerSecond += building.cps;
-        building.cost = Math.floor(building.cost * 1.15);
+        building.cost = Math.floor(building.cost * 1.15); // Increase cost for next purchase
         updateChiliCountDisplay();
         renderBuildings();
-        startCursorAutoclick();
+        startCursorAutoclick(); // Re-evaluate/start autoclicker after purchasing cursor
         saveGame();
     }
 }
 
-let cursorInterval;
+let cursorInterval; // Store the interval ID for the auto-clicker
 
 function startCursorAutoclick() {
+    // Clear any existing interval to prevent duplicates
     if (cursorInterval) {
         clearInterval(cursorInterval);
     }
@@ -128,7 +131,7 @@ function startCursorAutoclick() {
     if (cursorBuilding && cursorBuilding.owned > 0) {
         const clicksPerSecondPerCursor = 1;
         const totalClicksPerSecond = cursorBuilding.owned * clicksPerSecondPerCursor;
-        const delay = 1000 / totalClicksPerSecond;
+        const delay = 1000 / totalClicksPerSecond; // Milliseconds per click event
 
         cursorInterval = setInterval(() => {
             const clickEvent = new MouseEvent('click', {
@@ -151,8 +154,7 @@ function saveGame() {
         chiliCount,
         chilisPerSecond,
         chilisPerClick,
-        buildings,
-        upgrades
+        buildings
     };
     localStorage.setItem('chiliClickerSave', JSON.stringify(gameState));
 }
@@ -164,6 +166,7 @@ function loadGame() {
         chiliCount = gameState.chiliCount;
         chilisPerSecond = gameState.chilisPerSecond;
         chilisPerClick = gameState.chilisPerClick;
+        // Merge with existing buildings
         gameState.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {
@@ -171,14 +174,13 @@ function loadGame() {
                 building.cost = savedBuilding.cost;
             }
         });
-        // Assuming you have upgrade data to merge as well
-        // gameState.upgrades.forEach(...);
     }
     updateChiliCountDisplay();
     renderBuildings();
-    startCursorAutoclick();
+    startCursorAutoclick(); // Start autoclicker on load if cursors are owned
 }
 
+// --- Tab Switching Logic ---
 function showTab(tabId) {
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => {
@@ -204,15 +206,18 @@ function showTab(tabId) {
 // --- Event Listeners ---
 mainClickArea.addEventListener('click', handleChiliClick);
 
+// Add event listener to the news ticker container to advance news on click
 newsTickerContainer.addEventListener('click', () => {
+    // Clear the current interval and immediately update news
     clearInterval(newsTickerInterval);
     updateNewsTicker();
+    // Restart the interval so it continues ticking after manual advance
     newsTickerInterval = setInterval(updateNewsTicker, 4000);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     loadGame();
-    showTab('stats');
+    showTab('upgrades'); // Set initial active tab
 });
 
 document.querySelectorAll('.tab-button').forEach(button => {
@@ -222,5 +227,5 @@ document.querySelectorAll('.tab-button').forEach(button => {
 });
 
 // --- Initialization ---
-newsTickerInterval = setInterval(updateNewsTicker, 4000);
-setInterval(gameLoop, 1000);
+newsTickerInterval = setInterval(updateNewsTicker, 4000); // Start news ticker interval
+setInterval(gameLoop, 1000); // Main game loop runs every 1 second
