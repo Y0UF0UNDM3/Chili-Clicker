@@ -34,9 +34,8 @@
             </div>
         </div>
 
-        <!-- Middle Column: Buildings -->
+        <!-- Middle Column: Buildings (Scrollable) -->
         <div class="column middle-column">
-            <h3>Buildings</h3>
             <div id="building-list">
                 <!-- Buildings will be added here by JavaScript -->
             </div>
@@ -44,19 +43,20 @@
 
         <!-- Right Column: Upgrades and Stats Tabs -->
         <div class="column right-column">
-            <div class="upgrade-tabs">
-                <button class="tab-button active" data-tab="upgrades">Upgrades</button>
-                <button class="tab-button" data-tab="stats">Stats</button>
-            </div>
-
-            <!-- Content for each tab -->
-            <div id="upgrades-content" class="tab-content active">
+            <div class="upgrades-bar">
+                <!-- Upgrades content here -->
+                <h3 class="upgrades-title">Upgrades</h3>
                 <div id="upgrade-list">
                     <!-- Upgrades will be added here by JavaScript -->
                 </div>
             </div>
+            
+            <div class="upgrade-tabs">
+                <button class="tab-button active" data-tab="stats">Stats</button>
+            </div>
 
-            <div id="stats-content" class="tab-content">
+            <!-- Stats Content -->
+            <div id="stats-content" class="tab-content active">
                 <div id="stats-display">
                     <!-- Stats will be updated here by JavaScript -->
                 </div>
