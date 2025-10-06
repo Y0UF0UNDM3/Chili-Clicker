@@ -5,7 +5,6 @@ let chilisPerClick = 1;
 
 // --- DOM Element References ---
 const mainClickArea = document.getElementById('main-click-background');
-const mainChiliSoup = document.getElementById('main-chili-soup');
 const chiliCountDisplay = document.getElementById('chili-count');
 const cpsDisplay = document.getElementById('chilis-per-second');
 const gameNewsSpan = document.getElementById('game-news');
@@ -15,9 +14,10 @@ const statsDisplay = document.getElementById('stats-display');
 
 // --- Game Data: Buildings and Upgrades ---
 const buildings = [
-    { id: 'salsa-stand', name: 'Salsa Stand', cost: 15, cps: 0.1, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Salsa' },
-    { id: 'taco-truck', name: 'Taco Truck', cost: 100, cps: 1, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Truck' },
-    { id: 'chili-farm', name: 'Chili Farm', cost: 1100, cps: 8, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Farm' }
+    { id: 'cursor', name: 'Cursor', cost: 15, cps: 0.1, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Cursor' },
+    { id: 'salsa-stand', name: 'Salsa Stand', cost: 100, cps: 1, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Salsa' },
+    { id: 'taco-truck', name: 'Taco Truck', cost: 1100, cps: 8, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Truck' },
+    { id: 'chili-farm', name: 'Chili Farm', cost: 12000, cps: 47, owned: 0, image: 'https://via.placeholder.com/64x64.png?text=Farm' }
 ];
 
 // --- News Ticker Messages ---
@@ -50,7 +50,7 @@ function updateNewsTicker() {
     newsIndex = (newsIndex + 1) % newsSource.length;
 }
 
-function handleChiliClick(event) { // Add 'event' parameter
+function handleChiliClick(event) {
     chiliCount += chilisPerClick;
     updateChiliCountDisplay();
     updateNewsTicker();
@@ -111,6 +111,28 @@ function buyBuilding(buildingId) {
     }
 }
 
+let cursorInterval; // Store the interval ID for the auto-clicker
+
+function startCursorAutoclick() {
+    // Clear any existing interval to prevent duplicates
+    if (cursorInterval) {
+        clearInterval(cursorInterval);
+    }
+
+    const cursorBuilding = buildings.find(b => b.id === 'cursor');
+    if (cursorBuilding && cursorBuilding.owned > 0) {
+        const clickRate = 1000 / cursorBuilding.owned; // Adjust speed based on number of cursors
+        cursorInterval = setInterval(() => {
+            const clickEvent = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            mainClickArea.dispatchEvent(clickEvent);
+        }, clickRate);
+    }
+}
+
 function gameLoop() {
     chiliCount += chilisPerSecond;
     updateChiliCountDisplay();
@@ -133,7 +155,7 @@ function loadGame() {
         chiliCount = gameState.chiliCount;
         chilisPerSecond = gameState.chilisPerSecond;
         chilisPerClick = gameState.chilisPerClick;
-        // Merge with existing buildings to avoid errors if new ones are added
+        // Merge with existing buildings
         gameState.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {
@@ -144,25 +166,23 @@ function loadGame() {
     }
     updateChiliCountDisplay();
     renderBuildings();
+    startCursorAutoclick(); // Start autoclicker on load
 }
 
 // --- Tab Switching Logic ---
 function showTab(tabId) {
-    // Hide all tab contents
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => {
         content.classList.remove('active');
     });
     
-    // Deactivate all tab buttons
     const tabButtons = document.querySelectorAll('.tab-button');
     tabButtons.forEach(button => {
         button.classList.remove('active');
     });
 
-    // Show the selected tab content and activate its button
     const selectedContent = document.getElementById(`${tabId}-content`);
-    const selectedButton = document.querySelector(`[data-tab="${tabId}"]`); // Fix selector
+    const selectedButton = document.querySelector(`[data-tab="${tabId}"]`);
 
     if (selectedContent) {
         selectedContent.classList.add('active');
@@ -174,10 +194,12 @@ function showTab(tabId) {
 
 // --- Event Listeners ---
 mainClickArea.addEventListener('click', handleChiliClick);
+
 document.addEventListener('DOMContentLoaded', () => {
     loadGame();
-    showTab('store'); // Set initial active tab on load
+    showTab('upgrades'); // Set initial active tab
 });
+
 document.querySelectorAll('.tab-button').forEach(button => {
     button.addEventListener('click', (event) => {
         showTab(event.target.dataset.tab);
@@ -185,11 +207,5 @@ document.querySelectorAll('.tab-button').forEach(button => {
 });
 
 // --- Initialization ---
-// Start game loops
-setInterval(updateNewsTicker, 4000); // Change news every 4 seconds
-setInterval(gameLoop, 1000); // Main game loop runs every 1 second
-
-// Initialize display and state
-updateChiliCountDisplay();
-renderBuildings();
-loadGame();
+setInterval(updateNewsTicker, 4000);
+setInterval(gameLoop, 1000);
