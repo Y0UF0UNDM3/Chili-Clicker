@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chili Clicker</title>
-    <!-- Link to your CSS file -->
+    <!-- Link to your CSS file for styling the page -->
     <link rel="stylesheet" href="style.css">
-    <!-- Import a game-like font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <div class="header-item">
+            <h1 class="game-title">Chili Clicker</h1>
+        </div>
+        <div class="news-ticker-container">
+            <h3 style="margin-top:0;">NEWS</h3>
+            <div class="news-ticker">
+                <p><span id="game-news">The chili is feeling spicy!</span></p>
+            </div>
+        </div>
+    </header>
 
     <div class="game-container">
         <!-- Left Column: Main Action Area -->
@@ -21,7 +28,7 @@
             </div>
             <div class="score-display">
                 <h1 id="chili-count">0 Chilies</h1>
-                <p id="chilis-per-second">0.0 chilies per second</p>
+                <p id="chilis-per-second">0 chilies per second</p>
             </div>
         </div>
 
@@ -34,10 +41,10 @@
             </div>
 
             <!-- Content for each tab -->
-            <div id="store-content" class="tab-content">
+            <div id="store-content" class="tab-content active">
                 <h3>Buildings</h3>
                 <div id="building-list">
-                    <!-- Buildings will be added here by JavaScript -->
+                    <!-- Example building item for preview. JS will generate these. -->
                 </div>
             </div>
 
@@ -56,16 +63,8 @@
             </div>
         </div>
     </div>
-    
-    <!-- News and Milestones placed below for the multi-column effect -->
-    <div class="news-ticker-container">
-        <h3 style="margin-top:0;">NEWS</h3>
-        <div class="news-ticker">
-            <p><span id="game-news">The chili is feeling spicy!</span></p>
-        </div>
-    </div>
 
-    <!-- Link to your JavaScript file -->
+    <!-- Link to your JavaScript file for game logic -->
     <script src="script.js"></script>
 </body>
 </html>
