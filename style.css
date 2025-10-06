@@ -1,0 +1,118 @@
+/* Import a game-like font for flavor, if desired */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Basic setup */
+body {
+    background-color: #222; /* Dark background */
+    color: #eee; /* Light text color */
+    font-family: 'Press Start 2P', monospace; /* Pixelated font */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    min-height: 100vh;
+}
+
+/* Main game container for the columns */
+.game-container {
+    display: flex;
+    width: 95%; /* Adjust width for smaller screens */
+    max-width: 1200px; /* Maximum width for large monitors */
+    margin-top: 20px;
+    gap: 20px; /* Space between columns */
+}
+
+/* Styling for each column */
+.column {
+    background-color: #333;
+    border: 2px solid #555;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    min-height: 80vh; /* Make columns fill screen height */
+}
+
+.left-column {
+    flex: 2; /* Main click area is wider */
+    text-align: center;
+}
+
+.middle-column {
+    flex: 1; /* Thinner than the left column */
+}
+
+.right-column {
+    flex: 1; /* Thinner than the left column */
+}
+
+/* Score display */
+.score-display {
+    margin-bottom: 30px;
+}
+
+#chili-count {
+    font-size: 2.5rem;
+    color: #ff6347; /* Chili red */
+}
+
+#chilis-per-second {
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+/* Main clickable chili */
+#main-chili {
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#main-chili:active {
+    transform: scale(0.95);
+}
+
+/* News ticker and milestones */
+.news-ticker {
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#game-news {
+    color: #ff9800; /* Spicy orange */
+}
+
+.milestones {
+    list-style: none;
+    padding: 0;
+}
+
+/* Upgrade tabs and content */
+.upgrade-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.tab-button {
+    background-color: #444;
+    color: #eee;
+    border: 1px solid #777;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.tab-button.active {
+    background-color: #ff6347;
+}
+
+.tab-content {
+    /* To be populated by JavaScript */
+}
