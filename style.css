@@ -83,7 +83,12 @@ header {
     justify-content: space-between;
 }
 
-.middle-column, .right-column {
+.middle-column {
+    flex: 1;
+    overflow-y: auto; /* Makes the middle building list scrollable */
+}
+
+.right-column {
     flex: 1;
 }
 
@@ -141,7 +146,24 @@ header {
     margin-top: 5px;
 }
 
-/* Upgrade tabs and content */
+/* Right column with separate upgrades bar and stats */
+.right-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.upgrades-bar {
+    border-bottom: 2px solid #555;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto;
+}
+
+.upgrades-title {
+    margin-top: 0;
+}
+
 .upgrade-tabs {
     display: flex;
     justify-content: flex-start;
