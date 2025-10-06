@@ -3,8 +3,7 @@ let chiliCount = 0;
 let chilisPerSecond = 0;
 
 // --- DOM Element References ---
-// Updated to reference the new ID for the click area
-const mainChiliBar = document.getElementById('main-chili-bar');
+const mainChiliSoup = document.getElementById('main-chili-soup'); // Listen for clicks on the soup image
 const chiliCountDisplay = document.getElementById('chili-count');
 const cpsDisplay = document.getElementById('chilis-per-second');
 const gameNewsSpan = document.getElementById('game-news');
@@ -27,8 +26,6 @@ const generalNews = [
 let newsIndex = 0;
 
 // --- Game Logic Functions ---
-
-// Function to update the news ticker
 function updateNewsTicker() {
     let newsSource = [];
     if (chiliCount < 500) {
@@ -36,41 +33,34 @@ function updateNewsTicker() {
     } else {
         newsSource = generalNews;
     }
-
     const currentNews = newsSource[newsIndex];
     gameNewsSpan.textContent = currentNews;
     newsIndex = (newsIndex + 1) % newsSource.length;
 }
 
-// Function to handle the chili click
 function handleChiliClick() {
     chiliCount++;
     updateChiliCountDisplay();
     updateNewsTicker();
 }
 
-// Function to update the chili count display
 function updateChiliCountDisplay() {
     chiliCountDisplay.textContent = `${Math.floor(chiliCount)} Chilies`;
 }
 
-// Function to handle the tab navigation
 function showTab(tabId) {
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => {
         content.style.display = 'none';
     });
-
     const tabButtons = document.querySelectorAll('.tab-button');
     tabButtons.forEach(button => {
         button.classList.remove('active');
     });
-
     const selectedContent = document.getElementById(`${tabId}-content`);
     if (selectedContent) {
         selectedContent.style.display = 'block';
     }
-
     const selectedButton = document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`);
     if (selectedButton) {
         selectedButton.classList.add('active');
@@ -78,8 +68,8 @@ function showTab(tabId) {
 }
 
 // --- Event Listeners ---
-// Add a listener for the main chili click
-mainChiliBar.addEventListener('click', handleChiliClick);
+// Add a listener for the main chili soup image
+mainChiliSoup.addEventListener('click', handleChiliClick);
 
 // --- Initialization ---
 updateChiliCountDisplay();
