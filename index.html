@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chili Clicker</title>
+    <!-- Link to your CSS file for styling the page -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,20 +12,24 @@
     <div class="game-container">
         <!-- Left Column: Main Action Area -->
         <div class="column left-column">
+            <!-- Main clickable area with the background image -->
             <div class="main-click-area" id="main-click-background">
                 <div class="score-display">
                     <h1 id="chili-count">0 Chilies</h1>
                     <p id="chilis-per-second">0 chilies per second</p>
                 </div>
-                <!-- Image for the chili soup is now separate -->
+                <!-- Image for the chili soup is centered on top -->
                 <img src="8209-chicken-chili-soup-cookinmama-4x3-1-6a55c91fcc054e59840aec6d93f63a75 (1).jpg" alt="Chili Soup" id="main-chili-soup">
             </div>
         </div>
 
         <!-- Middle Column: News and Milestones -->
         <div class="column middle-column">
+            <!-- Separate heading for "NEWS" -->
+            <h3>NEWS</h3>
             <div class="news-ticker">
-                <p>News: <span id="game-news">The chili is feeling spicy!</span></p>
+                <!-- The news text will appear here -->
+                <p><span id="game-news">The chili is feeling spicy!</span></p>
             </div>
             <div class="milestones">
                 <h3>Milestones</h3>
@@ -42,6 +47,7 @@
                 <button class="tab-button" onclick="showTab('stats')">Stats</button>
             </div>
 
+            <!-- Content for each tab -->
             <div id="store-content" class="tab-content active">
                 <h3>Buildings</h3>
                 <div id="building-list">
