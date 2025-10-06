@@ -53,7 +53,7 @@ body {
 /* Score display container */
 .score-display {
     position: relative; /* Keep it positioned */
-    z-index: 2; /* Ensure text is above the background image */
+    z-index: 4; /* Ensure text is above the background image and soup */
     margin-bottom: 30px;
 }
 
@@ -112,18 +112,18 @@ body {
     background-color: #444;
     padding: 10px;
     border-radius: 5px;
-    white-space: nowrap;
-    overflow: hidden;
+    /* Removed nowrap and overflow for wrapping text */
+    height: 100px; /* Example height for the ticker box */
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #game-news {
     color: #ff9800; /* Spicy orange */
-}
-
-.milestones {
-    list-style: none;
-    padding: 0;
+    white-space: normal; /* Allow text to wrap normally */
+    text-align: center;
 }
 
 /* Upgrade tabs and content */
