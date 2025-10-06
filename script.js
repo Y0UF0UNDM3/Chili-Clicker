@@ -7,7 +7,8 @@ let chilisPerClick = 1;
 const mainClickArea = document.getElementById('main-click-background');
 const chiliCountDisplay = document.getElementById('chili-count');
 const cpsDisplay = document.getElementById('chilis-per-second');
-const gameNewsSpan = document.getElementById('game-news');
+const gameNewsSpan = document.getElementById('game-news'); // Changed to gameNewsSpan
+const newsTickerContainer = document.querySelector('.news-ticker'); // Select the ticker container for clicks
 const buildingList = document.getElementById('building-list');
 const upgradeList = document.getElementById('upgrade-list');
 const statsDisplay = document.getElementById('stats-display');
@@ -36,6 +37,7 @@ const generalNews = [
 ];
 
 let newsIndex = 0;
+let newsTickerInterval; // To control the news ticker interval
 
 // --- Game Logic Functions ---
 function updateNewsTicker() {
@@ -53,7 +55,6 @@ function updateNewsTicker() {
 function handleChiliClick(event) {
     chiliCount += chilisPerClick;
     updateChiliCountDisplay();
-    updateNewsTicker();
     
     // Create floating number feedback
     const floatingNumber = document.createElement('div');
@@ -107,6 +108,7 @@ function buyBuilding(buildingId) {
         building.cost = Math.floor(building.cost * 1.15); // Increase cost for next purchase
         updateChiliCountDisplay();
         renderBuildings();
+        startCursorAutoclick(); // Re-evaluate/start autoclicker after purchasing cursor
         saveGame();
     }
 }
@@ -121,15 +123,20 @@ function startCursorAutoclick() {
 
     const cursorBuilding = buildings.find(b => b.id === 'cursor');
     if (cursorBuilding && cursorBuilding.owned > 0) {
-        const clickRate = 1000 / cursorBuilding.owned; // Adjust speed based on number of cursors
+        // Calculate the rate to click once every second per cursor
+        const clicksPerSecondPerCursor = 1;
+        const totalClicksPerSecond = cursorBuilding.owned * clicksPerSecondPerCursor;
+        const delay = 1000 / totalClicksPerSecond; // Milliseconds per click event
+
         cursorInterval = setInterval(() => {
             const clickEvent = new MouseEvent('click', {
                 bubbles: true,
                 cancelable: true,
                 view: window
             });
+            // Dispatch click on the main click area, not necessarily the image
             mainClickArea.dispatchEvent(clickEvent);
-        }, clickRate);
+        }, delay);
     }
 }
 
@@ -166,7 +173,7 @@ function loadGame() {
     }
     updateChiliCountDisplay();
     renderBuildings();
-    startCursorAutoclick(); // Start autoclicker on load
+    startCursorAutoclick(); // Start autoclicker on load if cursors are owned
 }
 
 // --- Tab Switching Logic ---
@@ -195,6 +202,15 @@ function showTab(tabId) {
 // --- Event Listeners ---
 mainClickArea.addEventListener('click', handleChiliClick);
 
+// Add event listener to the news ticker container to advance news on click
+newsTickerContainer.addEventListener('click', () => {
+    // Clear the current interval and immediately update news
+    clearInterval(newsTickerInterval);
+    updateNewsTicker();
+    // Restart the interval so it continues ticking after manual advance
+    newsTickerInterval = setInterval(updateNewsTicker, 4000);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     loadGame();
     showTab('upgrades'); // Set initial active tab
@@ -207,5 +223,5 @@ document.querySelectorAll('.tab-button').forEach(button => {
 });
 
 // --- Initialization ---
-setInterval(updateNewsTicker, 4000);
-setInterval(gameLoop, 1000);
+newsTickerInterval = setInterval(updateNewsTicker, 4000); // Start news ticker interval
+setInterval(gameLoop, 1000); // Main game loop runs every 1 second
