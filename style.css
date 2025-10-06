@@ -26,13 +26,22 @@ header {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+}
+
 .game-title {
     font-size: 1.5rem;
     color: #ff6347;
-    text-align: center;
     margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #555;
+}
+
+.stats-display {
+    text-align: right;
 }
 
 .news-ticker-container {
@@ -40,19 +49,14 @@ header {
 }
 
 .news-ticker {
-    white-space: nowrap;
+    text-align: center;
     overflow: hidden;
 }
 
 #game-news {
     color: #ff9800;
     display: inline-block;
-    animation: ticker-scroll 20s linear infinite;
-}
-
-@keyframes ticker-scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    /* Removed the scrolling animation */
 }
 
 /* Main game container for the columns */
@@ -80,7 +84,7 @@ header {
     flex: 2;
     text-align: center;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .middle-column {
@@ -127,12 +131,7 @@ header {
 }
 
 /* Score display container */
-.score-display {
-    text-align: center;
-    width: 100%;
-    position: relative;
-    margin-top: 20px;
-}
+/* NOTE: The main score display is now in the header */
 
 #chili-count {
     font-size: 2.5rem;
@@ -156,7 +155,7 @@ header {
     border-bottom: 2px solid #555;
     padding-bottom: 10px;
     margin-bottom: 10px;
-    max-height: 200px; /* Adjust as needed */
+    max-height: 200px;
     overflow-y: auto;
 }
 
