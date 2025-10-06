@@ -3,7 +3,8 @@ let chiliCount = 0;
 let chilisPerSecond = 0;
 
 // --- DOM Element References ---
-const mainChili = document.getElementById('main-chili');
+// Updated to reference the new ID for the click area
+const mainChiliBar = document.getElementById('main-chili-bar');
 const chiliCountDisplay = document.getElementById('chili-count');
 const cpsDisplay = document.getElementById('chilis-per-second');
 const gameNewsSpan = document.getElementById('game-news');
@@ -36,7 +37,6 @@ function updateNewsTicker() {
         newsSource = generalNews;
     }
 
-    // Cycle through the selected news source
     const currentNews = newsSource[newsIndex];
     gameNewsSpan.textContent = currentNews;
     newsIndex = (newsIndex + 1) % newsSource.length;
@@ -44,12 +44,8 @@ function updateNewsTicker() {
 
 // Function to handle the chili click
 function handleChiliClick() {
-    // Increment the chili count by one
     chiliCount++;
-    // Update the on-screen display
     updateChiliCountDisplay();
-    // After clicking, check if we should update the news ticker
-    // This makes it more dynamic based on your actions
     updateNewsTicker();
 }
 
@@ -60,27 +56,21 @@ function updateChiliCountDisplay() {
 
 // Function to handle the tab navigation
 function showTab(tabId) {
-    // Get all tab content elements
     const tabContents = document.querySelectorAll('.tab-content');
-    // Hide all tab content
     tabContents.forEach(content => {
         content.style.display = 'none';
     });
 
-    // Get all tab buttons
     const tabButtons = document.querySelectorAll('.tab-button');
-    // Remove 'active' class from all buttons
     tabButtons.forEach(button => {
         button.classList.remove('active');
     });
 
-    // Display the selected tab content
     const selectedContent = document.getElementById(`${tabId}-content`);
     if (selectedContent) {
         selectedContent.style.display = 'block';
     }
 
-    // Add 'active' class to the clicked button
     const selectedButton = document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`);
     if (selectedButton) {
         selectedButton.classList.add('active');
@@ -89,10 +79,8 @@ function showTab(tabId) {
 
 // --- Event Listeners ---
 // Add a listener for the main chili click
-mainChili.addEventListener('click', handleChiliClick);
+mainChiliBar.addEventListener('click', handleChiliClick);
 
 // --- Initialization ---
-// Update the display when the page first loads
 updateChiliCountDisplay();
-// Start the news ticker loop
-setInterval(updateNewsTicker, 5000); // 5000 milliseconds = 5 seconds
+setInterval(updateNewsTicker, 5000);
