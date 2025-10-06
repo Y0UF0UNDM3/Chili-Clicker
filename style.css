@@ -50,23 +50,6 @@ body {
     flex: 1; /* Thinner than the left column */
 }
 
-/* Score display container */
-.score-display {
-    position: relative; /* Keep it positioned */
-    z-index: 4; /* Ensure text is above the background image and soup */
-    margin-bottom: 30px;
-}
-
-#chili-count {
-    font-size: 2.5rem;
-    color: #ff6347; /* Chili red */
-}
-
-#chilis-per-second {
-    font-size: 1.2rem;
-    color: #ccc;
-}
-
 /* Main clickable area with background image */
 #main-click-background {
     width: 100%;
@@ -100,11 +83,28 @@ body {
     height: auto;
     border-radius: 50%; /* Make it round to look more like a bowl */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 3; /* Ensure it's on top of the background */
+    margin-bottom: 20px; /* Add some space below the image */
+}
+
+/* Score display container */
+.score-display {
+    position: relative; /* Make it a positioning context */
+    z-index: 4; /* Ensure text is above the soup image */
+    text-align: center;
+    width: 100%;
+    /* You may need to adjust the positioning here for fine-tuning */
+    top: -50px; /* Example: Move it up to be above the image */
+}
+
+#chili-count {
+    font-size: 2.5rem;
+    color: #ff6347; /* Chili red */
+}
+
+#chilis-per-second {
+    font-size: 1.2rem;
+    color: #ccc;
 }
 
 /* News ticker and milestones */
