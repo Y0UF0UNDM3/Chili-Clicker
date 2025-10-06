@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chili Clicker</title>
+    <!-- Link to your CSS file for styling the page -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- Left Column: Main Action Area -->
+        <div class="column left-column">
+            <div class="score-display">
+                <h1 id="chili-count">0 Chilies</h1>
+                <p id="chilis-per-second">0 chilies per second</p>
+            </div>
+            <div class="main-click-area">
+                <!-- Use an image for the main chili -->
+                <img src="chili.png" alt="Big Chili" id="main-chili">
+            </div>
+        </div>
+
+        <!-- Middle Column: News and Milestones -->
+        <div class="column middle-column">
+            <div class="news-ticker">
+                <p>News: <span id="game-news">The chili is feeling spicy!</span></p>
+            </div>
+            <div class="milestones">
+                <h3>Milestones</h3>
+                <ul id="milestone-list">
+                    <li>Get 100 chilies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Column: Shop and Upgrades -->
+        <div class="column right-column">
+            <div class="upgrade-tabs">
+                <button class="tab-button active" onclick="showTab('store')">Store</button>
+                <button class="tab-button" onclick="showTab('upgrades')">Upgrades</button>
+                <button class="tab-button" onclick="showTab('stats')">Stats</button>
+            </div>
+
+            <!-- Content for each tab -->
+            <div id="store-content" class="tab-content active">
+                <h3>Buildings</h3>
+                <div id="building-list">
+                    <!-- Buildings will be added here by JavaScript -->
+                </div>
+            </div>
+
+            <div id="upgrades-content" class="tab-content" style="display:none;">
+                <h3>Upgrades</h3>
+                <div id="upgrade-list">
+                    <!-- Upgrades will be added here by JavaScript -->
+                </div>
+            </div>
+
+            <div id="stats-content" class="tab-content" style="display:none;">
+                <h3>Statistics</h3>
+                <div id="stats-display">
+                    <!-- Stats will be updated here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to your JavaScript file for game logic -->
+    <script src="script.js"></script>
+</body>
+</html>
