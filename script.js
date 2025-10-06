@@ -10,8 +10,8 @@ const chiliCountDisplay = document.getElementById('chili-count');
 const cpsDisplay = document.getElementById('chilis-per-second');
 const gameNewsSpan = document.getElementById('game-news');
 const buildingList = document.getElementById('building-list');
-const upgradeList = document.getElementById('upgrade-list'); // Add a reference for upgrades
-const statsDisplay = document.getElementById('stats-display'); // Add a reference for stats
+const upgradeList = document.getElementById('upgrade-list');
+const statsDisplay = document.getElementById('stats-display');
 
 // --- Game Data: Buildings and Upgrades ---
 const buildings = [
@@ -50,10 +50,10 @@ function updateNewsTicker() {
     newsIndex = (newsIndex + 1) % newsSource.length;
 }
 
-function handleChiliClick() {
+function handleChiliClick(event) { // Add 'event' parameter
     chiliCount += chilisPerClick;
     updateChiliCountDisplay();
-    updateNewsTicker(); // Update ticker on click too, just for fun
+    updateNewsTicker();
     
     // Create floating number feedback
     const floatingNumber = document.createElement('div');
@@ -61,11 +61,11 @@ function handleChiliClick() {
     floatingNumber.textContent = `+${chilisPerClick}`;
     mainClickArea.appendChild(floatingNumber);
     
-    // Position floating number at click location
+    // Position floating number at click location relative to the clickable area
     floatingNumber.style.left = `${event.offsetX}px`;
     floatingNumber.style.top = `${event.offsetY}px`;
     
-    // Remove after animation completes
+    // Remove after animation completes (1 second duration set in CSS)
     floatingNumber.addEventListener('animationend', () => {
         floatingNumber.remove();
     });
@@ -162,7 +162,7 @@ function showTab(tabId) {
 
     // Show the selected tab content and activate its button
     const selectedContent = document.getElementById(`${tabId}-content`);
-    const selectedButton = document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`);
+    const selectedButton = document.querySelector(`[data-tab="${tabId}"]`); // Fix selector
 
     if (selectedContent) {
         selectedContent.classList.add('active');
@@ -186,8 +186,8 @@ document.querySelectorAll('.tab-button').forEach(button => {
 
 // --- Initialization ---
 // Start game loops
-setInterval(updateNewsTicker, 5000);
-setInterval(gameLoop, 1000);
+setInterval(updateNewsTicker, 4000); // Change news every 4 seconds
+setInterval(gameLoop, 1000); // Main game loop runs every 1 second
 
 // Initialize display and state
 updateChiliCountDisplay();
