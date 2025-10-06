@@ -44,20 +44,55 @@ function updateNewsTicker() {
 
 // Function to handle the chili click
 function handleChiliClick() {
+    // Increment the chili count by one
     chiliCount++;
+    // Update the on-screen display
     updateChiliCountDisplay();
+    // After clicking, check if we should update the news ticker
+    // This makes it more dynamic based on your actions
+    updateNewsTicker();
 }
 
 // Function to update the chili count display
 function updateChiliCountDisplay() {
-    chiliCountDisplay.textContent = `${chiliCount} Chilies`;
+    chiliCountDisplay.textContent = `${Math.floor(chiliCount)} Chilies`;
+}
+
+// Function to handle the tab navigation
+function showTab(tabId) {
+    // Get all tab content elements
+    const tabContents = document.querySelectorAll('.tab-content');
+    // Hide all tab content
+    tabContents.forEach(content => {
+        content.style.display = 'none';
+    });
+
+    // Get all tab buttons
+    const tabButtons = document.querySelectorAll('.tab-button');
+    // Remove 'active' class from all buttons
+    tabButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // Display the selected tab content
+    const selectedContent = document.getElementById(`${tabId}-content`);
+    if (selectedContent) {
+        selectedContent.style.display = 'block';
+    }
+
+    // Add 'active' class to the clicked button
+    const selectedButton = document.querySelector(`.tab-button[onclick="showTab('${tabId}')"]`);
+    if (selectedButton) {
+        selectedButton.classList.add('active');
+    }
 }
 
 // --- Event Listeners ---
+// Add a listener for the main chili click
 mainChili.addEventListener('click', handleChiliClick);
 
 // --- Initialization ---
+// Update the display when the page first loads
 updateChiliCountDisplay();
-
-// Update the news ticker every 5 seconds
-setInterval(updateNewsTicker, 5000);
+// Start the news ticker loop
+setInterval(updateNewsTicker, 5000); // 5000 milliseconds = 5 seconds
